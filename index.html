@@ -6,7 +6,6 @@
 <title>Alexandria Photography Portfolio</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
-  /* Apple 90s inspired pastel colors */
   :root {
     --linen: #f6f1eb;
     --bondi-blue: #61bb46;
@@ -18,10 +17,7 @@
     --accent-color: var(--bondi-blue);
   }
 
-  /* Reset & base */
-  * {
-    box-sizing: border-box;
-  }
+  * { box-sizing: border-box; }
   body {
     margin: 0;
     background: var(--linen);
@@ -36,10 +32,7 @@
     cursor: pointer;
     transition: color 0.3s ease;
   }
-  a:hover, a:focus {
-    color: var(--strawberry);
-    outline: none;
-  }
+  a:hover, a:focus { color: var(--strawberry); outline: none; }
 
   header {
     background: white;
@@ -89,9 +82,13 @@
     margin: 0 auto;
   }
 
-  section {
-    margin-bottom: 4rem;
+  section.page {
+    display: none;
   }
+  section.page.active {
+    display: block;
+  }
+
   section h2 {
     font-size: 2rem;
     font-weight: 600;
@@ -123,7 +120,6 @@
     box-shadow: 0 10px 20px rgba(0,0,0,0.2);
   }
 
-  /* Category pages styling */
   .gallery-grid {
     display: flex;
     gap: 1rem;
@@ -142,7 +138,6 @@
     box-shadow: 0 10px 20px rgba(0,0,0,0.25);
   }
 
-  /* Contact form */
   form {
     max-width: 600px;
     margin: 0 auto;
@@ -190,7 +185,6 @@
     background: var(--strawberry);
   }
 
-  /* Footer */
   footer {
     text-align: center;
     padding: 1rem 0 2rem;
@@ -198,39 +192,6 @@
     font-size: 0.9rem;
   }
 
-  /* Scroll reveal styles */
-  .reveal {
-    opacity: 0;
-    transform: translateY(50px);
-    transition: all 0.7s ease;
-  }
-  .reveal.active {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* Dot cursor */
-  #dot-cursor {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 12px;
-    height: 12px;
-    background: var(--strawberry);
-    border-radius: 50%;
-    pointer-events: none;
-    transform: translate(-50%, -50%);
-    transition: background 0.3s ease, transform 0.1s ease;
-    z-index: 9999;
-  }
-  a:hover ~ #dot-cursor,
-  button:hover ~ #dot-cursor,
-  img:hover ~ #dot-cursor {
-    background: var(--bondi-blue);
-    transform: translate(-50%, -50%) scale(1.8);
-  }
-
-  /* Responsive */
   @media (max-width: 768px) {
     .category-preview img {
       flex: 1 1 calc(50% - 1rem);
@@ -254,7 +215,7 @@
 <body>
 
 <header>
-  <h1>Alexandria</h1>
+  <h1>Alexandria Photography</h1>
   <nav>
     <a href="#" class="nav-link active" data-page="home">Home</a>
     <a href="#" class="nav-link" data-page="maternity">Maternity</a>
@@ -265,11 +226,11 @@
 </header>
 
 <main>
-  <!-- Home Section -->
-  <section id="home" class="page">
+  <!-- Home page shows previews -->
+  <section id="home" class="page active">
     <section>
       <h2 data-page-link="maternity">Maternity</h2>
-      <div class="category-preview reveal">
+      <div class="category-preview">
         <img src="https://via.placeholder.com/400x300?text=Maternity+1" alt="Maternity 1" />
         <img src="https://via.placeholder.com/400x300?text=Maternity+2" alt="Maternity 2" />
         <img src="https://via.placeholder.com/400x300?text=Maternity+3" alt="Maternity 3" />
@@ -277,7 +238,7 @@
     </section>
     <section>
       <h2 data-page-link="family">Family</h2>
-      <div class="category-preview reveal">
+      <div class="category-preview">
         <img src="https://via.placeholder.com/400x300?text=Family+1" alt="Family 1" />
         <img src="https://via.placeholder.com/400x300?text=Family+2" alt="Family 2" />
         <img src="https://via.placeholder.com/400x300?text=Family+3" alt="Family 3" />
@@ -285,37 +246,117 @@
     </section>
     <section>
       <h2 data-page-link="portraits">Portraits</h2>
-      <div class="category-preview reveal">
-        <img src="https://via.placeholder.com/400x300?text=Portraits+1" alt="Portraits 1" />
-        <img src="https://via.placeholder.com/400x300?text=Portraits+2" alt="Portraits 2" />
-        <img src="https://via.placeholder.com/400x300?text=Portraits+3" alt="Portraits 3" />
+      <div class="category-preview">
+        <img src="https://via.placeholder.com/400x300?text=Portrait+1" alt="Portrait 1" />
+        <img src="https://via.placeholder.com/400x300?text=Portrait+2" alt="Portrait 2" />
+        <img src="https://via.placeholder.com/400x300?text=Portrait+3" alt="Portrait 3" />
       </div>
     </section>
   </section>
 
-  <!-- Maternity Section -->
-  <section id="maternity" class="page" style="display:none;">
+  <!-- Maternity Gallery -->
+  <section id="maternity" class="page">
     <h2>Maternity Gallery</h2>
-    <div class="gallery-grid reveal">
-      <img src="https://via.placeholder.com/600x400?text=Maternity+1" alt="Maternity 1" />
-      <img src="https://via.placeholder.com/600x400?text=Maternity+2" alt="Maternity 2" />
-      <img src="https://via.placeholder.com/600x400?text=Maternity+3" alt="Maternity 3" />
-      <img src="https://via.placeholder.com/600x400?text=Maternity+4" alt="Maternity 4" />
-      <img src="https://via.placeholder.com/600x400?text=Maternity+5" alt="Maternity 5" />
+    <div class="gallery-grid">
+      <img src="https://via.placeholder.com/600x400?text=Maternity+Photo+1" alt="Maternity 1" />
+      <img src="https://via.placeholder.com/600x400?text=Maternity+Photo+2" alt="Maternity 2" />
+      <img src="https://via.placeholder.com/600x400?text=Maternity+Photo+3" alt="Maternity 3" />
+      <img src="https://via.placeholder.com/600x400?text=Maternity+Photo+4" alt="Maternity 4" />
+      <img src="https://via.placeholder.com/600x400?text=Maternity+Photo+5" alt="Maternity 5" />
     </div>
   </section>
 
-  <!-- Family Section -->
-  <section id="family" class="page" style="display:none;">
+  <!-- Family Gallery -->
+  <section id="family" class="page">
     <h2>Family Gallery</h2>
-    <div class="gallery-grid reveal">
-      <img src="https://via.placeholder.com/600x400?text=Family+1" alt="Family 1" />
-      <img src="https://via.placeholder.com/600x400?text=Family+2" alt="Family 2" />
-      <img src="https://via.placeholder.com/600x400?text=Family+3" alt="Family 3" />
-      <img src="https://via.placeholder.com/600x400?text=Family+4" alt="Family 4" />
-      <img src="https://via.placeholder.com/600x400?text=Family+5" alt="Family 5" />
+    <div class="gallery-grid">
+      <img src="https://via.placeholder.com/600x400?text=Family+Photo+1" alt="Family 1" />
+      <img src="https://via.placeholder.com/600x400?text=Family+Photo+2" alt="Family 2" />
+      <img src="https://via.placeholder.com/600x400?text=Family+Photo+3" alt="Family 3" />
+      <img src="https://via.placeholder.com/600x400?text=Family+Photo+4" alt="Family 4" />
+      <img src="https://via.placeholder.com/600x400?text=Family+Photo+5" alt="Family 5" />
     </div>
   </section>
 
-  <!-- Portraits Section -->
-  <section id="portraits" class="page" style="display
+  <!-- Portraits Gallery -->
+  <section id="portraits" class="page">
+    <h2>Portraits Gallery</h2>
+    <div class="gallery-grid">
+      <img src="https://via.placeholder.com/600x400?text=Portrait+Photo+1" alt="Portrait 1" />
+      <img src="https://via.placeholder.com/600x400?text=Portrait+Photo+2" alt="Portrait 2" />
+      <img src="https://via.placeholder.com/600x400?text=Portrait+Photo+3" alt="Portrait 3" />
+      <img src="https://via.placeholder.com/600x400?text=Portrait+Photo+4" alt="Portrait 4" />
+      <img src="https://via.placeholder.com/600x400?text=Portrait+Photo+5" alt="Portrait 5" />
+    </div>
+  </section>
+
+  <!-- Contact Form -->
+  <section id="contact" class="page">
+    <h2>Contact Me</h2>
+    <form id="contactForm" action="mailto:allymendez00@gmail.com" method="post" enctype="text/plain">
+      <label for="name">Name</label>
+      <input id="name" name="name" required placeholder="Your full name" />
+
+      <label for="event">Event Type</label>
+      <select id="event" name="event" required>
+        <option value="" disabled selected>Select an event</option>
+        <option value="Maternity">Maternity</option>
+        <option value="Family">Family</option>
+        <option value="Portraits">Portraits</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <label for="date">Event Date</label>
+      <input id="date" name="date" type="date" required />
+
+      <label for="details">Additional Details</label>
+      <textarea id="details" name="details" placeholder="Tell me more about your photography needs..."></textarea>
+
+      <button type="submit">Send Inquiry</button>
+    </form>
+  </section>
+</main>
+
+<footer>
+  &copy; 2025 Alexandria Photography. All rights reserved.
+</footer>
+
+<script>
+  // Handle navigation links
+  const navLinks = document.querySelectorAll('nav .nav-link');
+  const pages = document.querySelectorAll('section.page');
+
+  function showPage(pageId) {
+    pages.forEach(page => {
+      page.classList.toggle('active', page.id === pageId);
+    });
+    navLinks.forEach(link => {
+      link.classList.toggle('active', link.dataset.page === pageId);
+    });
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+
+  navLinks.forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const page = link.dataset.page;
+      showPage(page);
+    });
+  });
+
+  // Allow clicking on category preview titles to open gallery pages
+  document.querySelectorAll('h2[data-page-link]').forEach(h2 => {
+    h2.addEventListener('click', () => {
+      const targetPage = h2.dataset.pageLink;
+      showPage(targetPage);
+
+      // Also highlight nav link
+      navLinks.forEach(link => {
+        link.classList.toggle('active', link.dataset.page === targetPage);
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
