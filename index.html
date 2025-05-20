@@ -1,240 +1,321 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Alexandria | Photography Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-  <style>
-    :root {
-      --linen: #f8f5f0;
-      --accent-rose: #eab7b7;
-      --accent-mint: #d4f0e0;
-      --accent-blue: #c9e1f7;
-      --text-dark: #1a1a1a;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Alexandria Photography Portfolio</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+  /* Apple 90s inspired pastel colors */
+  :root {
+    --linen: #f6f1eb;
+    --bondi-blue: #61bb46;
+    --tangerine: #f5821f;
+    --strawberry: #e03a3e;
+    --grape: #963d97;
+    --lime: #fdb827;
+    --text-color: #333;
+    --accent-color: var(--bondi-blue);
+  }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      cursor: none;
-    }
+  /* Reset & base */
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    background: var(--linen);
+    color: var(--text-color);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  a {
+    color: var(--accent-color);
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  a:hover, a:focus {
+    color: var(--strawberry);
+    outline: none;
+  }
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: var(--linen);
-      color: var(--text-dark);
-      overflow-x: hidden;
-    }
+  header {
+    background: white;
+    border-bottom: 2px solid var(--bondi-blue);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+  }
+  header h1 {
+    font-weight: 600;
+    font-size: 1.8rem;
+    margin: 0;
+    color: var(--grape);
+  }
+  nav {
+    display: flex;
+    gap: 2rem;
+  }
+  nav a {
+    font-weight: 600;
+    font-size: 1rem;
+    position: relative;
+  }
+  nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    height: 3px;
+    width: 0;
+    background: var(--accent-color);
+    transition: width 0.3s ease;
+    border-radius: 2px;
+  }
+  nav a:hover::after,
+  nav a.active::after {
+    width: 100%;
+  }
 
-    header {
-      padding: 1.5rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #ddd;
-    }
+  main {
+    padding: 2rem 1rem 5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
 
-    .logo {
-      font-size: 1.5rem;
-      font-weight: 700;
-    }
+  section {
+    margin-bottom: 4rem;
+  }
+  section h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--grape);
+    cursor: pointer;
+  }
+  section h2:hover {
+    color: var(--strawberry);
+  }
 
-    nav a {
-      margin-left: 1.5rem;
-      text-decoration: none;
-      color: var(--text-dark);
-      font-weight: 500;
-      transition: color 0.3s;
-    }
+  .category-preview {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+  .category-preview img {
+    flex: 1 1 calc(33% - 1rem);
+    border-radius: 8px;
+    box-shadow: 0 5px 12px rgba(0,0,0,0.1);
+    object-fit: cover;
+    height: 200px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .category-preview img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  }
 
-    nav a:hover {
-      color: #555;
-    }
+  /* Category pages styling */
+  .gallery-grid {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .gallery-grid img {
+    width: 300px;
+    max-width: 100%;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .gallery-grid img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+  }
 
-    section {
-      min-height: 100vh;
-      padding: 4rem 2rem;
-      display: none;
-    }
+  /* Contact form */
+  form {
+    max-width: 600px;
+    margin: 0 auto;
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  }
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--grape);
+  }
+  input, textarea, select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1.5rem;
+    border: 2px solid var(--bondi-blue);
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+    transition: border-color 0.3s ease;
+  }
+  input:focus, textarea:focus, select:focus {
+    border-color: var(--strawberry);
+    outline: none;
+  }
+  textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+  button {
+    background: var(--bondi-blue);
+    color: white;
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  button:hover {
+    background: var(--strawberry);
+  }
 
-    section.active {
-      display: block;
-    }
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 1rem 0 2rem;
+    color: var(--grape);
+    font-size: 0.9rem;
+  }
 
-    .hero h1 {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-    }
+  /* Scroll reveal styles */
+  .reveal {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.7s ease;
+  }
+  .reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
 
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-      margin-top: 2rem;
-    }
+  /* Dot cursor */
+  #dot-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 12px;
+    height: 12px;
+    background: var(--strawberry);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition: background 0.3s ease, transform 0.1s ease;
+    z-index: 9999;
+  }
+  a:hover ~ #dot-cursor,
+  button:hover ~ #dot-cursor,
+  img:hover ~ #dot-cursor {
+    background: var(--bondi-blue);
+    transform: translate(-50%, -50%) scale(1.8);
+  }
 
-    .gallery-grid div {
-      height: 200px;
-      background-size: cover;
-      background-position: center;
-      border-radius: 10px;
-      transition: transform 0.3s;
+  /* Responsive */
+  @media (max-width: 768px) {
+    .category-preview img {
+      flex: 1 1 calc(50% - 1rem);
+      height: 150px;
     }
-
-    .gallery-grid div:hover {
-      transform: scale(1.03);
+    .gallery-grid img {
+      width: 100%;
+      max-width: none;
     }
-
-    .button-group {
-      margin-top: 3rem;
-      display: flex;
-      flex-wrap: wrap;
+  }
+  @media (max-width: 480px) {
+    nav {
       gap: 1rem;
     }
-
-    .button-group button {
-      padding: 1rem 2rem;
-      background-color: var(--accent-blue);
-      border: none;
-      border-radius: 8px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: background-color 0.3s;
+    header {
+      padding: 1rem;
     }
-
-    .button-group button:hover {
-      background-color: var(--accent-mint);
-    }
-
-    footer {
-      text-align: center;
-      padding: 2rem;
-      font-size: 0.9rem;
-    }
-
-    /* Contact Page */
-    .contact p {
-      font-size: 1.1rem;
-      margin-bottom: 1rem;
-    }
-
-    /* Cursor */
-    .cursor-dot {
-      width: 8px;
-      height: 8px;
-      background: var(--text-dark);
-      border-radius: 50%;
-      position: fixed;
-      top: 0;
-      left: 0;
-      pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%, -50%);
-    }
-  </style>
+  }
+</style>
 </head>
 <body>
 
-<div class="cursor-dot" id="cursor"></div>
-
 <header>
-  <div class="logo">Alexandria</div>
+  <h1>Alexandria</h1>
   <nav>
-    <a href="#" data-page="home">Home</a>
-    <a href="#" data-page="maternity">Maternity</a>
-    <a href="#" data-page="family">Family</a>
-    <a href="#" data-page="portraits">Portraits</a>
-    <a href="#" data-page="contact">Contact</a>
+    <a href="#" class="nav-link active" data-page="home">Home</a>
+    <a href="#" class="nav-link" data-page="maternity">Maternity</a>
+    <a href="#" class="nav-link" data-page="family">Family</a>
+    <a href="#" class="nav-link" data-page="portraits">Portraits</a>
+    <a href="#" class="nav-link" data-page="contact">Contact</a>
   </nav>
 </header>
 
 <main>
-  <!-- Home -->
-  <section id="home" class="hero active" data-aos="fade-up">
-    <h1>Welcome to My Photography</h1>
-    <p>I specialize in capturing honest, beautiful moments that last a lifetime.</p>
-    <div class="button-group">
-      <button onclick="showPage('maternity')">Maternity</button>
-      <button onclick="showPage('family')">Family</button>
-      <button onclick="showPage('portraits')">Portraits</button>
+  <!-- Home Section -->
+  <section id="home" class="page">
+    <section>
+      <h2 data-page-link="maternity">Maternity</h2>
+      <div class="category-preview reveal">
+        <img src="https://via.placeholder.com/400x300?text=Maternity+1" alt="Maternity 1" />
+        <img src="https://via.placeholder.com/400x300?text=Maternity+2" alt="Maternity 2" />
+        <img src="https://via.placeholder.com/400x300?text=Maternity+3" alt="Maternity 3" />
+      </div>
+    </section>
+    <section>
+      <h2 data-page-link="family">Family</h2>
+      <div class="category-preview reveal">
+        <img src="https://via.placeholder.com/400x300?text=Family+1" alt="Family 1" />
+        <img src="https://via.placeholder.com/400x300?text=Family+2" alt="Family 2" />
+        <img src="https://via.placeholder.com/400x300?text=Family+3" alt="Family 3" />
+      </div>
+    </section>
+    <section>
+      <h2 data-page-link="portraits">Portraits</h2>
+      <div class="category-preview reveal">
+        <img src="https://via.placeholder.com/400x300?text=Portraits+1" alt="Portraits 1" />
+        <img src="https://via.placeholder.com/400x300?text=Portraits+2" alt="Portraits 2" />
+        <img src="https://via.placeholder.com/400x300?text=Portraits+3" alt="Portraits 3" />
+      </div>
+    </section>
+  </section>
+
+  <!-- Maternity Section -->
+  <section id="maternity" class="page" style="display:none;">
+    <h2>Maternity Gallery</h2>
+    <div class="gallery-grid reveal">
+      <img src="https://via.placeholder.com/600x400?text=Maternity+1" alt="Maternity 1" />
+      <img src="https://via.placeholder.com/600x400?text=Maternity+2" alt="Maternity 2" />
+      <img src="https://via.placeholder.com/600x400?text=Maternity+3" alt="Maternity 3" />
+      <img src="https://via.placeholder.com/600x400?text=Maternity+4" alt="Maternity 4" />
+      <img src="https://via.placeholder.com/600x400?text=Maternity+5" alt="Maternity 5" />
     </div>
   </section>
 
-  <!-- Maternity -->
-  <section id="maternity" data-aos="fade-right">
-    <h2>Maternity Shoots</h2>
-    <div class="gallery-grid">
-      <div style="background-image: url('https://via.placeholder.com/400x300?text=Maternity+1');"></div>
-      <div style="background-image: url('https://via.placeholder.com/400x300?text=Maternity+2');"></div>
-      <div style="background-image: url('https://via.placeholder.com/400x300?text=Maternity+3');"></div>
+  <!-- Family Section -->
+  <section id="family" class="page" style="display:none;">
+    <h2>Family Gallery</h2>
+    <div class="gallery-grid reveal">
+      <img src="https://via.placeholder.com/600x400?text=Family+1" alt="Family 1" />
+      <img src="https://via.placeholder.com/600x400?text=Family+2" alt="Family 2" />
+      <img src="https://via.placeholder.com/600x400?text=Family+3" alt="Family 3" />
+      <img src="https://via.placeholder.com/600x400?text=Family+4" alt="Family 4" />
+      <img src="https://via.placeholder.com/600x400?text=Family+5" alt="Family 5" />
     </div>
   </section>
 
-  <!-- Family -->
-  <section id="family" data-aos="fade-left">
-    <h2>Family Shoots</h2>
-    <div class="gallery-grid">
-      <div style="background-image: url('https://via.placeholder.com/400x300?text=Family+1');"></div>
-      <div style="background-image: url('https://via.placeholder.com/400x300?text=Family+2');"></div>
-      <div style="background-image: url('https://via.placeholder.com/400x300?text=Family+3');"></div>
-    </div>
-  </section>
-
-  <!-- Portraits -->
-  <section id="portraits" data-aos="fade-up">
-    <h2>Portrait Sessions</h2>
-    <div class="gallery-grid">
-      <div style="background-image: url('https://via.placeholder.com/400x300?text=Portrait+1');"></div>
-      <div style="background-image: url('https://via.placeholder.com/400x300?text=Portrait+2');"></div>
-      <div style="background-image: url('https://via.placeholder.com/400x300?text=Portrait+3');"></div>
-    </div>
-  </section>
-
-  <!-- Contact -->
-  <section id="contact" class="contact" data-aos="fade-in">
-    <h2>Contact</h2>
-    <p>Phone: 832-794-0901</p>
-    <p>Email: <a href="mailto:allymendez00@gmail.com">allymendez00@gmail.com</a></p>
-    <p>Bio coming soon.</p>
-    <p><strong>Inquire for pricing.</strong></p>
-  </section>
-</main>
-
-<footer>
-  &copy; 2025 Alexandria. All rights reserved.
-</footer>
-
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-  AOS.init();
-
-  const links = document.querySelectorAll('nav a');
-  const sections = document.querySelectorAll('main section');
-
-  links.forEach(link => {
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-      const target = link.getAttribute('data-page');
-      showPage(target);
-    });
-  });
-
-  function showPage(id) {
-    sections.forEach(section => section.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-    window.scrollTo(0, 0);
-  }
-
-  // Custom cursor logic
-  const cursor = document.getElementById('cursor');
-  document.addEventListener('mousemove', e => {
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top = e.clientY + 'px';
-  });
-</script>
-
-</body>
-</html>
+  <!-- Portraits Section -->
+  <section id="portraits" class="page" style="display
